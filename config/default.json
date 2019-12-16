@@ -1,0 +1,15 @@
+{
+    "smtp": {
+        "mailgun": {
+            "domain": "",
+            "api-key": ""
+        },
+        "sendgrid": {
+            "api-key": ""
+        }
+    },
+    "logger": {
+        "format": "[:date[iso]] :method :url :status :res[content-length] - :response-time ms",
+        "options": null
+    }
+}

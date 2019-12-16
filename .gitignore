@@ -9,7 +9,7 @@
 .idea/**/shelf
 .vscode/
  config/default.json
-
+.env
 # Generated files
 .idea/**/contentModel.xml
 
