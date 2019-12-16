@@ -13,20 +13,20 @@ class MailService {
     async execute(data) {
         try {
             // let data = this.parseInput(inputData);
-            let flagMailSuccess = false;
+            let mailGunResponse = false,sendGridResponse = false;
             let MailGunInstance = new ServiceFactory("MailGun", { url: this.mailgun_url, key: this.mailgun_key });
             let SendGridInstance = new ServiceFactory("SendGrid", { url: this.sendgrid_url, key: this.sendgrid_key });
 
-            flagMailSuccess = await MailGunInstance.SendMail(data);
-            if (!flagMailSuccess) {
-                flagMailSuccess = await SendGridInstance.SendMail(data);
+            mailGunResponse = await MailGunInstance.SendMail(data);
+            if (mailGunResponse instanceof Error) {
+               // try with send grid if mailgun failed
+                sendGridResponse = await SendGridInstance.SendMail(data);
             }
-            if (flagMailSuccess instanceof Error) {
+            if (sendGridResponse instanceof Error) {
                 console.error("Mail Servers can not full fill the request");
-                return flagMailSuccess;
-            } else {
-                return flagMailSuccess;
-            }
+                return new InternalError("Mail Servers are not responding, We are working on it");
+            } 
+            return mailGunResponse|| sendGridResponse;
         } catch (error) {
             console.error("Internal Error", error);
             return new InternalError("Some internal error, We are working on it");

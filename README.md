@@ -18,7 +18,7 @@ npm install
 ```
 ## Steps to start
 **Note**: Default.json file must be updated in config folder before start,or .env file must be added to root directory with keys
-mailgun_domain,mailgun_api_key,sendgrid_api_key
+(mailgun_domain, mailgun_api_key, sendgrid_api_key)
 
 To start the express server, run the following
 
